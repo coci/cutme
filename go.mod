@@ -6,6 +6,7 @@ require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/go-playground/validator/v10 v10.28.0
 	github.com/joho/godotenv v1.5.1
+	github.com/speps/go-hashids/v2 v2.0.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
