@@ -1,10 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"net/http"
 
-	"github.com/coci/cutme/internal/cutme/config"
+	"github.com/coci/cutme/internal/adapters/api"
+	"github.com/coci/cutme/internal/adapters/repositories"
+	"github.com/coci/cutme/internal/infra"
+	"github.com/coci/cutme/internal/services"
+	"github.com/coci/cutme/pkg/config"
 )
 
 func main() {
@@ -12,5 +16,16 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
-	fmt.Println(cfg)
+
+	handler := api.ShortenerHandler{
+		Svc: services.NewShortenerService(
+			repositories.NewLinkRepository(),
+			repositories.NewIDGeneratorRepository(cfg),
+			cfg,
+		),
+		Log: infra.NewZapLogger(),
+	}
+
+	http.HandleFunc("/short", handler.ShortLink)
+	http.HandleFunc("/resolve", handler.GetLink)
 }
