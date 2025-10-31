@@ -14,5 +14,9 @@ type LinkRepo interface {
 }
 
 type IDGenerator interface {
-	Next() int32
+	Next() int
+}
+
+type HashIDRepo interface {
+	Increment() error
 }
