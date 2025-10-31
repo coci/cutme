@@ -1,0 +1,9 @@
+app_name: cutme
+env: prod
+log_level: info
+base_url: https://cut.me
+
+hash_config:
+  hash_salt: "cutme"
+  hash_alphabet: ""
+  hash_min_length: 7
