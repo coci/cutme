@@ -2,16 +2,17 @@ package cutme
 
 import "github.com/coci/cutme/internal/cutme/domain"
 
-type IShortener interface {
+type Shortener interface {
 	Shorten(url string) (string, error)
 	Resolve(code string) (string error)
+	MakeUniqueCode() string
 }
 
-type ILinkRepo interface {
+type LinkRepo interface {
 	Save(link domain.Link) error
 	FindByCode(code string) domain.Link
 }
 
-type IdGenerator interface {
-	NewCode() int32
+type IDGenerator interface {
+	Next() int32
 }
