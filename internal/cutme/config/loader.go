@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/caarlos0/env/v11"
+	"github.com/joho/godotenv"
 	"gopkg.in/yaml.v3"
 )
 
@@ -40,6 +41,9 @@ func Load(opts ...Option) (*Config, error) {
 	}
 	_ = fs.Parse(args)
 
+	// 0) Auto-load .env (ignore if missing)
+	_ = godotenv.Load()
+
 	if *flagConfig != "" {
 		o.FilePath = *flagConfig
 	}
@@ -56,8 +60,12 @@ func Load(opts ...Option) (*Config, error) {
 	}
 
 	// 2) ENV overrides
-	// Convert nested fields: we already put explicit env tags on fields.
-	// Prefix applied by env package via Options.
+	// Read environment variables into cfg.
+	// Apply a global prefix like "APP_" if provided.
+	prefix := o.EnvPrefix
+	if prefix != "" && !strings.HasSuffix(prefix, "_") {
+		prefix += "_"
+	}
 	err := env.Parse(cfg)
 
 	if err != nil {
