@@ -1,5 +1,5 @@
 APP=cutme
-APP_EXECUTABLE="./$(APP)"
+APP_EXECUTABLE=out/$(APP)
 ALL_PACKAGES=$(shell go list ./... | grep -v /vendor)
 SHELL := /bin/zsh
 
@@ -15,7 +15,7 @@ check-quality:
 	make vet
 
 lint:
-	golangci-lint run --enable-all
+	golangci-lint run
 
 vet:
 	go vet ./...
@@ -38,18 +38,19 @@ coverage:
 
 build:
 	mkdir -p out/
-	go build -o $(APP_EXECUTABLE)
+	go build -o $(APP_EXECUTABLE) ./cmd/main.go
 	@echo "Build passed"
 
 run:
 	make build
 	chmod +x $(APP_EXECUTABLE)
-	$(APP_EXECUTABLE)
+	$(APP_EXECUTABLE) -config ./configs/config.yaml
 
 clean:
 	go clean
 	rm -rf out/
-	rm -f coverage*.out
+	# avoid zsh 'no matches found' on missing glob
+	@find . -maxdepth 1 -name 'coverage*.out' -delete || true
 
 vendor:
 	go mod vendor
