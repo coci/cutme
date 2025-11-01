@@ -9,57 +9,66 @@ WHITE  := $(shell tput -Txterm setaf 7)
 CYAN   := $(shell tput -Txterm setaf 6)
 RESET  := $(shell tput -Txterm sgr0)
 
+# Quiet mode by default (use `make V=1 …` for verbose)
+ifeq ($(V),1)
+Q :=
+else
+Q := @
+endif
+
+# Avoid noisy "Entering/Leaving directory" messages
+MAKEFLAGS += --no-print-directory
+
 check-quality:
-	make lint
-	make fmt
-	make vet
+	$(Q)$(MAKE) lint
+	$(Q)$(MAKE) fmt
+	$(Q)$(MAKE) vet
 
 lint:
-	golangci-lint run
+	$(Q)golangci-lint run
 
 vet:
-	go vet ./...
+	$(Q)go vet ./...
 
 fmt:
-	go fmt ./...
+	$(Q)go fmt ./...
 
 tidy:
-	go mod tidy
+	$(Q)go mod tidy
 
 test:
-	make tidy
-	make vendor
-	go test -v -timeout 10m ./... -coverprofile=coverage.out -json > report.json
+	$(Q)$(MAKE) tidy
+	$(Q)$(MAKE) vendor
+	$(Q)go test -v -timeout 10m ./... -coverprofile=coverage.out -json > report.json
 
 coverage:
-	make test
-	go tool cover -html=coverage.out
+	$(Q)$(MAKE) test
+	$(Q)go tool cover -html=coverage.out
 
 
 build:
-	mkdir -p out/
-	go build -o $(APP_EXECUTABLE) ./cmd/main.go
-	@echo "Build passed"
+	$(Q)mkdir -p out/
+	$(Q)go build -o $(APP_EXECUTABLE) ./cmd/main.go
+	$(Q)echo "Build passed"
 
 run:
-	make build
-	chmod +x $(APP_EXECUTABLE)
-	$(APP_EXECUTABLE) -config ./configs/config.yaml
+	$(Q)$(MAKE) build
+	$(Q)chmod +x $(APP_EXECUTABLE)
+	$(Q)$(APP_EXECUTABLE) -config ./configs/config.yaml
 
 clean:
-	go clean
-	rm -rf out/
-	# avoid zsh 'no matches found' on missing glob
-	@find . -maxdepth 1 -name 'coverage*.out' -delete || true
+	$(Q)go clean
+	$(Q)rm -rf out/
+	$(Q)find . -maxdepth 1 -name 'coverage*.out' -delete || true
 
 vendor:
-	go mod vendor
+	$(Q)go mod vendor
 
 
 .PHONY: all test build vendor
 
 
 all:
-	make check-quality
-	make test
-	make build
+	$(Q)$(MAKE) check-quality
+	$(Q)$(MAKE) test
+	$(Q)$(MAKE) build
