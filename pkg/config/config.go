@@ -18,7 +18,7 @@ type Config struct {
 	AppName  string `yaml:"app_name"   env:"APP_NAME"   validate:"required"`
 	Env      string `yaml:"env"        env:"APP_ENV"    validate:"oneof=dev test staging prod"`
 	LogLevel string `yaml:"log_level"  env:"LOG_LEVEL"  validate:"oneof=debug info warn error"`
-	BaseURL  string `yaml:"base_url"   env:"BASE_URL"   validate:"required,url"`
+	BaseURL  string `yaml:"base_url"   env:"BASE_URL"   validate:"required"`
 
 	HashCfg  HashCfg  `yaml:"hash_config"`
 	RedisCfg RedisCfg `yaml:"redis_config"`
@@ -29,7 +29,7 @@ func Default() *Config {
 		AppName:  "cutme",
 		Env:      "dev",
 		LogLevel: "info",
-		BaseURL:  "http://localhost:8080",
+		BaseURL:  "localhost:8080",
 		HashCfg: HashCfg{
 			HashSalt:      "test-env",
 			HashAlphabet:  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
