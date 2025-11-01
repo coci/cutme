@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/coci/cutme/internal/core/domain"
 	"github.com/coci/cutme/internal/core/ports"
@@ -55,7 +56,11 @@ func (s ShortenerService) MakeUniqueCode() string {
 		Alphabet:  s.config.HashCfg.HashAlphabet,
 		MinLength: s.config.HashCfg.HashMinLength,
 	}
-	h, _ := hashids.NewWithData(&hashId)
+	h, err := hashids.NewWithData(&hashId)
+
+	if err != nil {
+		log.Fatal("instantiating hashids", err)
+	}
 
 	e, _ := h.Encode([]int{newBaseCode})
 
