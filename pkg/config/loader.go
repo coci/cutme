@@ -59,16 +59,13 @@ func Load(opts ...Option) (*Config, error) {
 		return nil, fmt.Errorf("config file required but not provided")
 	}
 
-	// 2) ENV overrides
 	// Read environment variables into cfg.
 	// Apply a global prefix like "APP_" if provided.
-	prefix := o.EnvPrefix
-	if prefix != "" && !strings.HasSuffix(prefix, "_") {
+	prefix := strings.TrimSuffix(o.EnvPrefix, "_")
+	if prefix != "" {
 		prefix += "_"
 	}
-	err := env.Parse(cfg)
-
-	if err != nil {
+	if err := env.ParseWithOptions(cfg, env.Options{Prefix: prefix}); err != nil {
 		return nil, fmt.Errorf("parse env: %w", err)
 	}
 
