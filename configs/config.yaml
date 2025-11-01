@@ -1,7 +1,7 @@
 app_name: cutme
 env: prod
 log_level: info
-base_url: https://cut.me
+base_url: https://cut.me:80
 
 hash_config:
   hash_salt: cutme
