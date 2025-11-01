@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -28,4 +29,11 @@ func main() {
 
 	http.HandleFunc("/short", handler.ShortLink)
 	http.HandleFunc("/resolve", handler.GetLink)
+
+	fmt.Println(cfg)
+	err = http.ListenAndServe(cfg.BaseURL, nil)
+
+	if err != nil {
+		log.Fatalf("failed to start server: %v", err)
+	}
 }
