@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/coci/cutme/pkg/config"
 	"github.com/redis/go-redis/v9"
@@ -13,12 +14,12 @@ type IDGeneratorRepository struct {
 }
 
 func NewIDGeneratorRepository(cfg *config.Config) *IDGeneratorRepository {
+
 	return &IDGeneratorRepository{
 		HashKey: cfg.RedisCfg.RedisHashKey,
 		conn: redis.NewClient(&redis.Options{
-			Addr:     cfg.RedisCfg.Host,
-			Password: cfg.RedisCfg.Password,
-			DB:       cfg.RedisCfg.DB,
+			Addr: fmt.Sprintf("%s:%d", cfg.RedisCfg.Host, cfg.RedisCfg.Port),
+			DB:   cfg.RedisCfg.DB,
 		}),
 	}
 }
