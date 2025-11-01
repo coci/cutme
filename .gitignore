@@ -2,3 +2,5 @@
 *.xml
 .env
 out/
+vendor/
+report.json
