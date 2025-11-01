@@ -30,7 +30,8 @@ func main() {
 	http.HandleFunc("/short", handler.ShortLink)
 	http.HandleFunc("/resolve", handler.GetLink)
 
-	fmt.Println(cfg)
+	fmt.Printf("Starting server on: %s\n", cfg.BaseURL)
+
 	err = http.ListenAndServe(cfg.BaseURL, nil)
 
 	if err != nil {
