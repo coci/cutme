@@ -39,7 +39,7 @@ tidy:
 test:
 	$(Q)$(MAKE) tidy
 	$(Q)$(MAKE) vendor
-	$(Q)go test -v -timeout 10m ./... -coverprofile=coverage.out -json > report.json
+	$(Q)go test ./...
 
 coverage:
 	$(Q)$(MAKE) test
@@ -47,6 +47,7 @@ coverage:
 
 
 build:
+	$(Q)$(MAKE) test
 	$(Q)mkdir -p out/
 	$(Q)go build -o $(APP_EXECUTABLE) ./cmd/main.go
 	$(Q)echo "Build passed"
