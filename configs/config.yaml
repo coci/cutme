@@ -13,3 +13,11 @@ redis_config:
   port: 6379
   password:
   redis_hash_key: hash_ids
+
+cassandra_config:
+  hosts: ["127.0.0.1"]
+  port: 9042
+  username: admin
+  password: admin
+  keyspace: test
+  link_table_name: links
