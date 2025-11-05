@@ -4,17 +4,16 @@ A lightweight, high-performance URL shortener service built with Go, using Cassa
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [Testing](#testing)
-- [Building](#building)
-- [Development](#development)
-- [Project Structure](#project-structure)
+- [Overview](#🔍 Overview)
+- [Features](#✨ Features)
+- [Architecture](#🏗 Architecture)
+- [Prerequisites](#📦 Prerequisites)
+- [Installation](#🚀 Installation)
+- [Configuration](#⚙️ Configuration)
+- [Running the Application](#🏃 Running the Application)
+- [Testing](#🧪 Testing)
+- [Development](#🛠 Development)
+- [Project Structure](#📁 Project Structure)
 
 ## 🔍 Overview
 
