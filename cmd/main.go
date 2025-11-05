@@ -7,9 +7,8 @@ import (
 
 	"github.com/coci/cutme/internal/adapters/api"
 	"github.com/coci/cutme/internal/adapters/repositories"
-	"github.com/coci/cutme/internal/infra"
+	"github.com/coci/cutme/internal/infra/config"
 	"github.com/coci/cutme/internal/services"
-	"github.com/coci/cutme/pkg/config"
 )
 
 func main() {
@@ -20,11 +19,11 @@ func main() {
 
 	handler := api.ShortenerHandler{
 		Svc: services.NewShortenerService(
-			repositories.NewLinkRepository(),
+			repositories.NewLinkRepository(cfg),
 			repositories.NewIDGeneratorRepository(cfg),
 			cfg,
 		),
-		Log: infra.NewZapLogger(),
+		Log: services.NewZapLogger(),
 	}
 
 	http.HandleFunc("/short", handler.ShortLink)
