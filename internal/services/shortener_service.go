@@ -6,7 +6,7 @@ import (
 
 	"github.com/coci/cutme/internal/core/domain"
 	"github.com/coci/cutme/internal/core/ports"
-	"github.com/coci/cutme/pkg/config"
+	"github.com/coci/cutme/internal/infra/config"
 	"github.com/speps/go-hashids/v2"
 )
 
@@ -44,8 +44,10 @@ func (s ShortenerService) Shorten(url string) (string, error) {
 	return code, nil
 }
 
-func (s ShortenerService) Resolve(code string) (string, error) {
-	return "google.com", nil
+func (s ShortenerService) Resolve(code string) (domain.Link, error) {
+	result := s.linkRepo.FindByCode(code)
+
+	return result, nil
 }
 
 func (s ShortenerService) MakeUniqueCode() string {
