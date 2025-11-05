@@ -2,19 +2,6 @@
 
 A lightweight, high-performance URL shortener service built with Go, using Cassandra for persistence and Redis for distributed ID generation.
 
-## 📋 Table of Contents
-
-- [Overview](#🔍 Overview)
-- [Features](#✨ Features)
-- [Architecture](#🏗 Architecture)
-- [Prerequisites](#📦 Prerequisites)
-- [Installation](#🚀 Installation)
-- [Configuration](#⚙️ Configuration)
-- [Running the Application](#🏃 Running the Application)
-- [Testing](#🧪 Testing)
-- [Development](#🛠 Development)
-- [Project Structure](#📁 Project Structure)
-
 ## 🔍 Overview
 
 CutMe is a URL shortening service that generates unique, short codes for long URLs using HashIDs. It follows clean architecture principles with hexagonal/ports-and-adapters design pattern.
