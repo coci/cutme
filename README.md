@@ -11,13 +11,10 @@ A lightweight, high-performance URL shortener service built with Go, using Cassa
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
 - [Testing](#testing)
 - [Building](#building)
 - [Development](#development)
 - [Project Structure](#project-structure)
-- [TODO](#todo)
-- [Contributing](#contributing)
 
 ## 🔍 Overview
 
