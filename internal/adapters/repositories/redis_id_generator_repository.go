@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/coci/cutme/pkg/config"
+	"github.com/coci/cutme/internal/infra/config"
 	"github.com/redis/go-redis/v9"
 )
 
