@@ -2,6 +2,14 @@ package config
 
 import "github.com/go-playground/validator/v10"
 
+type CassandraCfg struct {
+	Hosts         []string `yaml:"hosts" env:"CASSANDRA_HOSTS" validate:"required"`
+	Port          int      `yaml:"port" env:"CASSANDRA_PORT" validate:"required"`
+	Username      string   `yaml:"username" env:"CASSANDRA_USERNAME" validate:"required"`
+	Password      string   `yaml:"password" env:"CASSANDRA_PASSWORD" validate:"required"`
+	Keyspace      string   `yaml:"keyspace" env:"CASSANDRA_KEYSPACE" validate:"required"`
+	LinkTableName string   `yaml:"link_table_name" env:"CASSANDRA_LINK_TABLE" validate:"required"`
+}
 type RedisCfg struct {
 	Host         string `yaml:"host" env:"REDIS_HOST" validate:"required"`
 	Port         int    `yaml:"port" env:"REDIS_PORT" validate:"required"`
@@ -20,8 +28,9 @@ type Config struct {
 	LogLevel string `yaml:"log_level"  env:"LOG_LEVEL"  validate:"oneof=debug info warn error"`
 	BaseURL  string `yaml:"base_url"   env:"BASE_URL"   validate:"required"`
 
-	HashCfg  HashCfg  `yaml:"hash_config"`
-	RedisCfg RedisCfg `yaml:"redis_config"`
+	HashCfg      HashCfg      `yaml:"hash_config"`
+	RedisCfg     RedisCfg     `yaml:"redis_config"`
+	CassandraCfg CassandraCfg `yaml:"cassandra_config"`
 }
 
 func Default() *Config {
@@ -40,6 +49,13 @@ func Default() *Config {
 			Port:         6379,
 			DB:           0,
 			RedisHashKey: "cutme",
+		},
+		CassandraCfg: CassandraCfg{
+			Hosts:         []string{"localhost"},
+			Port:          9042,
+			Username:      "cassandra",
+			Password:      "cassandra",
+			LinkTableName: "links",
 		},
 	}
 }
