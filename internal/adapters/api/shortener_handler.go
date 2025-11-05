@@ -24,18 +24,37 @@ func (h *ShortenerHandler) ShortLink(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		h.Log.Error("failed to decode request body")
 		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	shortLink.Code, _ = h.Svc.Shorten(shortLink.Link)
+	} else {
+		shortLink.Code, _ = h.Svc.Shorten(shortLink.Link)
 
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
 
-	if err := json.NewEncoder(w).Encode(shortLink); err != nil {
-		h.Log.Error("failed to encode response")
+		if err := json.NewEncoder(w).Encode(shortLink); err != nil {
+			h.Log.Error("failed to encode response")
+		}
 	}
 }
 
 func (h *ShortenerHandler) GetLink(w http.ResponseWriter, r *http.Request) {
+	var shortLink domain.Link
+
+	err := json.NewDecoder(r.Body).Decode(&shortLink)
+	if err != nil {
+		h.Log.Error("failed to decode request body")
+		w.WriteHeader(http.StatusBadRequest)
+	} else {
+
+		result, err := h.Svc.Resolve(shortLink.Code)
+
+		if err != nil {
+			h.Log.Error("failed to resolve link")
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		if err := json.NewEncoder(w).Encode(result); err != nil {
+			h.Log.Error("failed to encode response")
+		}
+	}
 
 }
