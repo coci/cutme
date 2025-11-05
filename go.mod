@@ -3,6 +3,7 @@ module github.com/coci/cutme
 go 1.25.1
 
 require (
+	github.com/apache/cassandra-gocql-driver/v2 v2.0.0
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/go-playground/validator/v10 v10.28.0
 	github.com/joho/godotenv v1.5.1
@@ -23,4 +24,5 @@ require (
 	golang.org/x/crypto v0.42.0 // indirect
 	golang.org/x/sys v0.36.0 // indirect
 	golang.org/x/text v0.29.0 // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
 )
