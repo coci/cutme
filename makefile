@@ -11,9 +11,9 @@ RESET  := $(shell tput -Txterm sgr0)
 
 # Quiet mode by default (use `make V=1 …` for verbose)
 ifeq ($(V),1)
-Q :=
+	Q :=
 else
-Q := @
+	Q := @
 endif
 
 # Avoid noisy "Entering/Leaving directory" messages
@@ -64,10 +64,6 @@ clean:
 
 vendor:
 	$(Q)go mod vendor
-
-
-.PHONY: all test build vendor
-
 
 all:
 	$(Q)$(MAKE) check-quality
